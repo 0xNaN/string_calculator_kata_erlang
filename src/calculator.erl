@@ -10,7 +10,7 @@ to_numbers(String) ->
     [to_number(Token) || Token <- split_into_tokens(String)].
 
 split_into_tokens(String) ->
-    re:split(String, ",", [{return, list}]).
+    re:split(String, "[,\n]", [{return, list}]).
 
 to_number(String) ->
     case string:to_integer(String) of
