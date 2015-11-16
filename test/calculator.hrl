@@ -30,3 +30,8 @@ newline_should_be_a_valid_delimenter_test() ->
 
 alternative_delimenter_could_be_specified_test() ->
     ?assertEqual(7, calculator:add("//;\n2;3;2")).
+
+
+alternative_delimenter_could_be_of_any_length_test() ->
+    ?assertEqual(7, calculator:add("//;;;\n2;;;3;;;2")).
+

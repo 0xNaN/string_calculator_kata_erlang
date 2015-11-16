@@ -10,13 +10,20 @@ to_numbers(String) ->
     [to_number(Token) || Token <- split_into_tokens(String)].
 
 
-split_into_tokens([$/, $/, Delimeter, $\n | String]) ->
+split_into_tokens([$/, $/ | DelimeterAndString]) ->
+    {String, Delimeter} = extract_delimeter(DelimeterAndString),
     split_into_tokens(String, [Delimeter]);
 split_into_tokens(String) ->
     split_into_tokens(String, ",").
 split_into_tokens(String, Delimeter) ->
     re:split(String, "[" ++ Delimeter ++ "\n]", [{return, list}]).
 
+extract_delimeter(DelimeterAndString) ->
+    extract_delimeter(DelimeterAndString, "").
+extract_delimeter([Delimeter, $\n | String], DelimeterSoFar) ->
+    {String, [Delimeter | DelimeterSoFar]};
+extract_delimeter([Delimeter | DelimeterAndString], DelimeterSoFar) ->
+    extract_delimeter(DelimeterAndString, [Delimeter | DelimeterSoFar]).
 
 to_number(String) ->
     case string:to_integer(String) of
