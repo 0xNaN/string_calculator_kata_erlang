@@ -27,3 +27,6 @@ string_with_few_numbers_should_add_to_the_sum_of_numbers_test() ->
 
 newline_should_be_a_valid_delimenter_test() ->
     ?assertEqual(7, calculator:add("2\n3,2")).
+
+alternative_delimenter_could_be_specified_test() ->
+    ?assertEqual(7, calculator:add("//;\n2;3;2")).
