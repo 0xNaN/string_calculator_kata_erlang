@@ -18,3 +18,6 @@ string_N_should_add_to_N_test() ->
     ?assertEqual(9, calculator:add("9")),
     ?assertEqual(10, calculator:add("10")),
     ?assertEqual(125, calculator:add("125")).
+
+string_with_2_and_3_should_add_to_5_test() ->
+    ?assertEqual(5, calculator:add("2,3")).

@@ -2,7 +2,10 @@
 -export([add/1]).
 
 add(String)  ->
-   to_number(String).
+    case re:split(String, ",", [{return, list}]) of
+        [Token] -> to_number(Token);
+        [FirstToken, SecondToken] -> to_number(FirstToken) + to_number(SecondToken)
+    end.
 
 to_number(String) ->
     case string:to_integer(String) of
