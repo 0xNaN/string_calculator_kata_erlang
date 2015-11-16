@@ -2,10 +2,10 @@
 -export([add/1]).
 
 add(String)  ->
-    case to_numbers(String) of
-        [Token] -> Token;
-        [FirstToken, SecondToken] -> FirstToken + SecondToken
-    end.
+    Numbers = to_numbers(String),
+    lists:foldl(fun (Number, Sum) ->
+                        Sum + Number
+                end, 0, Numbers).
 
 to_numbers(String) ->
     [to_number(Token) || Token <- split_into_tokens(String)].
