@@ -36,3 +36,7 @@ alternative_delimenter_could_be_of_any_length_test() ->
 
 alternative_delimeter_could_be_made_of_regular_expression_special_characters_test() ->
     ?assertEqual(7, calculator:add("//***\n2***3***2")).
+
+alternative_delimeter_could_be_asymmetric_test() ->
+    ?assertEqual(7, calculator:add("//.,\n2.,3.,2")).
+

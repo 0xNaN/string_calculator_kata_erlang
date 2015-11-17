@@ -1,5 +1,6 @@
 -module(calculator).
--export([add/1]).
+-compile(export_all).
+-export([add/1, extract_delimeter/1, extract_delimeter/2]).
 
 add(String)  ->
     lists:foldl(fun (Number, Sum) ->
@@ -16,12 +17,13 @@ split_into_tokens([$/, $/ | DelimeterAndString]) ->
 split_into_tokens(String) ->
     split_into_tokens(String, ",").
 split_into_tokens(String, Delimeter) ->
-    re:split(String, "[" ++ Delimeter ++ "\n]", [{return, list}]).
+    % re:split(String, "[" ++ Delimeter ++ "\n]", [{return, list}]).
+    re:split(String, "\\Q" ++ Delimeter ++ "\\E|\n", [{return, list}]).
 
 extract_delimeter(DelimeterAndString) ->
     extract_delimeter(DelimeterAndString, "").
 extract_delimeter([Delimeter, $\n | String], DelimeterSoFar) ->
-    {String, [Delimeter | DelimeterSoFar]};
+    {String, lists:reverse([Delimeter | DelimeterSoFar])};
 extract_delimeter([Delimeter | DelimeterAndString], DelimeterSoFar) ->
     extract_delimeter(DelimeterAndString, [Delimeter | DelimeterSoFar]).
 
